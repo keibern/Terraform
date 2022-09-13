@@ -13,26 +13,46 @@ resource "aws_vpc" "vpc" {
 }
 
 #Create Subnet Public
-resource "aws_subnet" "subnet_public" {
+resource "aws_subnet" "subnet_public1" {
     vpc_id                  = aws_vpc.vpc.id
-    cidr_block              = ["10.0.0.0/24", "10.0.1.0/24"]
-    availability_zone       = ["ap-northeast-2a", "ap-northeast-2c"]
+    cidr_block              = "10.0.0.0/24"
+    availability_zone       = "ap-northeast-2a"
     map_public_ip_on_launch = true
 
     tags = {
-        Name = "${var.name_tag}-Subnet-Public"
+        Name = "${var.name_tag}-Subnet-Public-1"
+    }
+}
+resource "aws_subnet" "subnet_public2" {
+    vpc_id                  = aws_vpc.vpc.id
+    cidr_block              = "10.0.1.0/24"
+    availability_zone       = "ap-northeast-2c"
+    map_public_ip_on_launch = true
+
+    tags = {
+        Name = "${var.name_tag}-Subnet-Public-2"
     }
 }
 
 #Create Subnet Private
-resource "aws_subnet" "subnet_private" {
+resource "aws_subnet" "subnet_private1" {
     vpc_id                  = aws_vpc.vpc.id  
-    cidr_block              = ["10.0.10.0/24", "10.0.11.0/24"]
-    availability_zone       = ["ap-northeast-2a", "ap-northeast-2c"]
+    cidr_block              = "10.0.10.0/24"
+    availability_zone       = "ap-northeast-2a"
     map_public_ip_on_launch = false
 
     tags = {
-        Name = "${var.name_tag}-Subnet-Private"
+        Name = "${var.name_tag}-Subnet-Private-1"
+    }
+}
+resource "aws_subnet" "subnet_private2" {
+    vpc_id                  = aws_vpc.vpc.id  
+    cidr_block              = "10.0.11.0/24"
+    availability_zone       = "ap-northeast-2c"
+    map_public_ip_on_launch = false
+
+    tags = {
+        Name = "${var.name_tag}-Subnet-Private-2"
     }
 }
 
@@ -71,7 +91,7 @@ resource "aws_eip" "nat_ip" {
 
 resource "aws_nat_gateway" "ngw" {
     allocation_id = aws_eip.nat_ip[*].id
-    subnet_id     = aws_subnet.subnet_public[*].id
+    subnet_id     = aws_subnet.subnet_private[*].id
 
     tags = {
         Name = "${var.name_tag}-ngw"
