@@ -24,7 +24,7 @@ resource "aws_subnet" "subnet_public" {
 #Create Subnet Private
 resource "aws_subnet" "subnet_private" {
     vpc_id                  = aws_vpc.vpc.id  
-    cidr_block              = ["10.0.0.0/24", "10.0.1.0/24"]
+    cidr_block              = ["10.0.10.0/24", "10.0.11.0/24"]
     availability_zone       = ["ap-northeast-2a", "ap-northeast-2c"]
     map_public_ip_on_launch = false
 
