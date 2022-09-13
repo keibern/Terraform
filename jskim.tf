@@ -5,10 +5,11 @@ resource "aws_vpc" "vpc" {
     enable_dns_hostnames = true      #default 값이 false
 
     tags = { 
-      Name = "${var.name_tag}-vpc"
+      Name = "test-vpc"
     }
 }
 
+/*
 #Create Subnet Public
 resource "aws_subnet" "subnet_public" {
     vpc_id                  = aws_vpc.vpc.id
@@ -119,3 +120,4 @@ resource "aws_security_group" "Test" {
     Name = "${var.name_tag}-SecurityGroup-Test"
   }
 }
+*/
