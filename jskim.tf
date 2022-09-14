@@ -70,8 +70,12 @@ resource "aws_route_table" "rt_public" {
     }
 }
 
-resource "aws_route_table_association" "rt_public_as" {
-    subnet_id      = aws_subnet.subnet_public[*].id
+resource "aws_route_table_association" "rt_public1_as" {
+    subnet_id      = aws_subnet.subnet_public1.id
+    route_table_id = aws_route_table.rt_public.id
+}
+resource "aws_route_table_association" "rt_publi2_as" {
+    subnet_id      = aws_subnet.subnet_public2.id
     route_table_id = aws_route_table.rt_public.id
 }
 
@@ -90,8 +94,8 @@ resource "aws_eip" "nat_ip" {
 }
 
 resource "aws_nat_gateway" "ngw" {
-    allocation_id = aws_eip.nat_ip[*].id
-    subnet_id     = aws_subnet.subnet_private[*].id
+    allocation_id = aws_eip.nat_ip.id
+    subnet_id     = aws_subnet.subnet_public1.id
 
     tags = {
         Name = "${var.name_tag}-ngw"
@@ -112,9 +116,13 @@ resource "aws_route_table" "rt_private" {
     }
 }
 
-resource "aws_route_table_association" "rt_private_as" {
-    subnet_id      = aws_subnet.subnet_private[*].id
-    route_table_id = aws_route_table.rt_private[*].id
+resource "aws_route_table_association" "rt_private1_as" {
+    subnet_id      = aws_subnet.subnet_private1.id
+    route_table_id = aws_route_table.rt_private.id
+}
+resource "aws_route_table_association" "rt_private2_as" {
+    subnet_id      = aws_subnet.subnet_private2.id
+    route_table_id = aws_route_table.rt_private.id
 }
 
 #Create Security Group
