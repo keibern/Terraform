@@ -150,6 +150,7 @@ resource "aws_security_group" "Test" {
     Name = "${var.name_tag}-SecurityGroup-Test"
   }
 
+/*
 resource "aws_security_group" "HTTP" {
   name        = "${var.name_tag}-SecurityGroup-HTTP"
   description = "Allow HTTP traffic"
@@ -174,3 +175,4 @@ resource "aws_security_group" "HTTP" {
     Name = "${var.name_tag}-SecurityGroup-HTTP"
   }
 }
+*/
